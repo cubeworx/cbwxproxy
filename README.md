@@ -1,1 +1,1 @@
-# mcbe-proxy
+# CubeWorx Proxy
