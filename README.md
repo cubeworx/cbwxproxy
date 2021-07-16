@@ -6,11 +6,11 @@ This image is a self-contained Minecraft server proxy untilizing Traefik. The im
 ## Quickstart
 
 ```
-docker run -d -it -p 19132:19132/udp -e CBWXPROXY_BEDROCK_ENABLE=true -e CBWXPROXY_BEDROCK_REMOTE_HOST=<fqdn or ip>:port cubeworx/cbwxproxy
+docker run -d -it -p 19132:19132/udp -e CBWXPROXY_BEDROCK_ENABLE=true -e CBWXPROXY_BEDROCK_REMOTE_HOST=fqdn_or_ip:port cubeworx/cbwxproxy
 ```
 or
 ```
-docker run -d -it -p 25565:25565 -e CBWXPROXY_JAVA_ENABLE=true -e CBWXPROXY_JAVA_REMOTE_HOST=<fqdn or ip>:port cubeworx/cbwxproxy
+docker run -d -it -p 25565:25565 -e CBWXPROXY_JAVA_ENABLE=true -e CBWXPROXY_JAVA_REMOTE_HOST=fqdn_or_ip:port cubeworx/cbwxproxy
 ```
 
 ## Configuration
