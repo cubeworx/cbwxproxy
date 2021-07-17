@@ -1,42 +1,21 @@
 #!/usr/bin/env sh
 
-CBWXPROXY_ADMIN_ENABLE=${CBWXPROXY_ADMIN_ENABLE:-"false"}
-CBWXPROXY_ADMIN_PORT=${CBWXPROXY_ADMIN_PORT:-"8888"}
 CBWXPROXY_BEDROCK_ENABLE=${CBWXPROXY_BEDROCK_ENABLE:-"false"}
 CBWXPROXY_BEDROCK_PORT=${CBWXPROXY_BEDROCK_PORT:-"19132"}
 CBWXPROXY_BEDROCK_REMOTE_HOST=${CBWXPROXY_BEDROCK_REMOTE_HOST:-""}
-CBWXPROXY_DEBUG=${CBWXPROXY_DEBUG:="false"}
 CBWXPROXY_JAVA_ENABLE=${CBWXPROXY_JAVA_ENABLE:-"false"}
 CBWXPROXY_JAVA_PORT=${CBWXPROXY_JAVA_PORT:-"25565"}
 CBWXPROXY_JAVA_REMOTE_HOST=${CBWXPROXY_JAVA_REMOTE_HOST:-""}
-CBWXPROXY_LOG_LEVEL=${CBWXPROXY_LOG_LEVEL:-"ERROR"}
+TRAEFIK_ADMIN_DEBUG=${TRAEFIK_ADMIN_DEBUG:="false"}
+TRAEFIK_ADMIN_ENABLE=${TRAEFIK_ADMIN_ENABLE:-"false"}
+TRAEFIK_ADMIN_PORT=${TRAEFIK_ADMIN_PORT:-"8888"}
+TRAEFIK_LOG_LEVEL=${TRAEFIK_LOG_LEVEL:-"ERROR"}
 
-CBWXPROXY_ENTRYPOINTS_OPTS="\
+TRAEFIK_ENTRYPOINTS_OPTS="\
 entryPoints:
-"
-
-config_admin() {
-  if [[ "x${CBWXPROXY_ADMIN_ENABLE}" == "xtrue" ]]; then
-    if [[ "x${CBWXPROXY_ADMIN_PORT}" != "x" ]]; then
-      if [[ "${CBWXPROXY_ADMIN_PORT}" -lt 1 ]] && [[ "${CBWXPROXY_ADMIN_PORT}" -gt 65535 ]]; then
-        echo "ERROR: CBWXPROXY_ADMIN_PORT must be a number between 1-65535!"
-        exit 1
-      fi
-    fi
-CBWXPROXY_ENTRYPOINTS_ADMIN="\
   traefik:
-    address: \":${CBWXPROXY_ADMIN_PORT}\"
+    address: \":${TRAEFIK_ADMIN_PORT}\"
 "
-CBWXPROXY_ADMIN_OPTS="\
-api:
-  dashboard: true
-  debug: ${CBWXPROXY_DEBUG}
-  insecure: true
-ping:
-  entryPoint: \"traefik\"
-"
-  fi
-}
 
 config_bedrock() {
   if [[ "x${CBWXPROXY_BEDROCK_ENABLE}" == "xtrue" ]]; then
@@ -49,11 +28,11 @@ config_bedrock() {
         exit 1
       fi
     fi
-CBWXPROXY_ENTRYPOINTS_BEDROCK="\
+TRAEFIK_ENTRYPOINTS_BEDROCK="\
   bedrock:
     address: \":${CBWXPROXY_BEDROCK_PORT}/udp\"
 "
-CBWXPROXY_BEDROCK_OPTS="\
+TRAEFIK_BEDROCK_OPTS="\
 udp:
   routers:
     bedrock:
@@ -78,11 +57,11 @@ config_java() {
         exit 1
       fi
     fi
-CBWXPROXY_ENTRYPOINTS_JAVA="\
+TRAEFIK_ENTRYPOINTS_JAVA="\
   java:
     address: \":${CBWXPROXY_JAVA_PORT}\"
 "
-CBWXPROXY_JAVA_OPTS="\
+TRAEFIK_JAVA_OPTS="\
 tcp:
   routers:
     java:
@@ -97,25 +76,44 @@ tcp:
   fi
 }
 
+config_traefik_admin() {
+  if [[ "x${TRAEFIK_ADMIN_ENABLE}" == "xtrue" ]]; then
+    if [[ "x${TRAEFIK_ADMIN_PORT}" != "x" ]]; then
+      if [[ "${TRAEFIK_ADMIN_PORT}" -lt 1 ]] && [[ "${TRAEFIK_ADMIN_PORT}" -gt 65535 ]]; then
+        echo "ERROR: TRAEFIK_ADMIN_PORT must be a number between 1-65535!"
+        exit 1
+      fi
+    fi
+TRAEFIK_ADMIN_OPTS="\
+api:
+  dashboard: true
+  debug: ${TRAEFIK_ADMIN_DEBUG}
+  insecure: true
+"
+  fi
+}
+
 write_config() {
-  CBWXPROXY_ENTRYPOINTS_OPTS=${CBWXPROXY_ENTRYPOINTS_OPTS}${CBWXPROXY_ENTRYPOINTS_ADMIN}${CBWXPROXY_ENTRYPOINTS_BEDROCK}${CBWXPROXY_ENTRYPOINTS_JAVA}
+  TRAEFIK_ENTRYPOINTS_OPTS=${TRAEFIK_ENTRYPOINTS_OPTS}${TRAEFIK_ENTRYPOINTS_BEDROCK}${TRAEFIK_ENTRYPOINTS_JAVA}
 cat << EOF > /etc/traefik.yaml
 # traefik.yaml
 global:
   checkNewVersion: false
   sendAnonymousUsage: false
 log:
-  level: "${CBWXPROXY_LOG_LEVEL}"
+  level: "${TRAEFIK_LOG_LEVEL}"
 accessLog: {}
+ping:
+  entryPoint: "traefik"
 providers:
   file:
     filename: /etc/provider.yaml
-${CBWXPROXY_ADMIN_OPTS}
-${CBWXPROXY_ENTRYPOINTS_OPTS}
+${TRAEFIK_ADMIN_OPTS}
+${TRAEFIK_ENTRYPOINTS_OPTS}
 EOF
 cat << EOF > /etc/provider.yaml
-${CBWXPROXY_BEDROCK_OPTS}
-${CBWXPROXY_JAVA_OPTS}
+${TRAEFIK_BEDROCK_OPTS}
+${TRAEFIK_JAVA_OPTS}
 EOF
 }
 
@@ -124,12 +122,13 @@ if [[ "x${CBWXPROXY_BEDROCK_ENABLE}" != "xtrue" ]] && [[ "x${CBWXPROXY_JAVA_ENAB
   echo "ERROR: Either CBWXPROXY_BEDROCK_ENABLE or CBWXPROXY_JAVA_ENABLE variable must be TRUE!"
   exit 1
 fi
-#Check admin
-config_admin
+
 #Check bedrock
 config_bedrock
 #Check java
 config_java
+#Check traefik admin
+config_traefik_admin
 #Write config file
 write_config
 

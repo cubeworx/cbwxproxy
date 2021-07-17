@@ -1,7 +1,7 @@
 CubeWorx Minecraft Server Proxy Image
 ==============
 
-This image is a self-contained Minecraft server proxy untilizing Traefik. The image can be used to proxy a remote Bedrock Edition and/or Java Edition server on your local network. For Bedrock Edition this enables the remote server to appear under LAN Games.
+This image is a self-contained Minecraft server proxy untilizing Traefik.
 
 ## Quickstart
 
@@ -13,22 +13,40 @@ or
 docker run -d -it -p 25565:25565 -e CBWXPROXY_JAVA_ENABLE=true -e CBWXPROXY_JAVA_REMOTE_HOST=fqdn_or_ip:port cubeworx/cbwxproxy
 ```
 
+## Usage
+
+This image can be used to proxy a remote Bedrock Edition and/or Java Edition server on your local network. For Bedrock Edition this enables the remote server to appear under LAN Games when ran using the default port.
+
+A single container can be used to proxy a connection to different remote Bedrock & Java Edition servers at the same time but only one container per default exposed port.
+
 ## Configuration
 
-The image runs with default or recommended configurations but can be highly customized through environment variables. Changing any of the environment variables from their defaults will update the server.properties file as described here: https://minecraft.fandom.com/wiki/Server.properties#Bedrock_Edition_3
+|                                    |                                                                          |
+|------------------------------------|--------------------------------------------------------------------------|
+| `CBWXPROXY_BEDROCK_ENABLE="false"` | Enables Bedrock Edition Proxy listener                                   |
+| `CBWXPROXY_BEDROCK_PORT="19132"`   | Default IPv4 UDP port the Bedrock Edition Server proxy should listen on. |
+| `CBWXPROXY_BEDROCK_REMOTE_HOST=""` | Remote Bedrock FQDN or IP and port to connect to (fqdn_or_ip:port)       |
+| `CBWXPROXY_JAVA_ENABLE="false"`    | Enables Java Edition Proxy listener                                      |
+| `CBWXPROXY_JAVA_PORT="25565"`      | Default IPv4 TCP port the Bedrock Edition Server proxy should listen on. |
+| `CBWXPROXY_JAVA_REMOTE_HOST=""`    | Remote Bedrock FQDN or IP and port to connect to (fqdn_or_ip:port)       |
+| `TRAEFIK_ADMIN_DEBUG="false"`      | Enables additional Traefik admin API endpoints for debugging             |
+| `TRAEFIK_ADMIN_ENABLE="false"`     | Enables Traefik admin API and dashboard                                  |
+| `TRAEFIK_ADMIN_PORT="8888"`        | Default IPv4 TCP port the Traefik admin should listen on.                |
+| `TRAEFIK_LOG_LEVEL="ERROR"`        | Default log level for Traefik                                            |
 
-
-### Customized Default Configuration
-
-|                               |                                                                         |
-|-------------------------------|-------------------------------------------------------------------------|
-| `CBWXPROXY_ADMIN_ENABLE="false"`  |  |
-| `CBWXPROXY_ADMIN_PORT="8888"` |         |
-| `CBWXPROXY_BEDROCK_ENABLE="falsel"`  |  |
-| `CBWXPROXY_BEDROCK_PORT="19132"` |         |
-| `CBWXPROXY_BEDROCK_REMOTE_HOST=""`  |  |
-| `CBWXPROXY_DEBUG="false"` |         |
-| `CBWXPROXY_JAVA_ENABLE="false"`  |  |
-| `CBWXPROXY_JAVA_PORT="25565"` |         |
-| `CBWXPROXY_JAVA_REMOTE_HOST=""`  |  |
-| `CBWXPROXY_LOG_LEVEL="ERROR"` |         |
+## Docker Compose
+```
+version: '3.8'
+services:
+  cbwxproxy:
+    image: cubeworx/cbwxproxy:latest
+    network_mode: bridge
+    environment:
+      CBWXPROXY_BEDROCK_ENABLE: 'true'
+      CBWXPROXY_BEDROCK_REMOTE_HOST: fqdn_or_ip:port
+      CBWXPROXY_JAVA_ENABLE: 'true'
+      CBWXPROXY_JAVA_REMOTE_HOST: fqdn_or_ip:port
+    ports:
+      - 19132:19132/udp
+      - 25565:25565
+```

@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  cbwxproxy:
+    image: cubeworx/cbwxproxy:latest
+    network_mode: bridge
+    environment:
+      CBWXPROXY_BEDROCK_ENABLE: 'true'
+      CBWXPROXY_BEDROCK_REMOTE_HOST: fqdn_or_ip:port
+      CBWXPROXY_JAVA_ENABLE: 'true'
+      CBWXPROXY_JAVA_REMOTE_HOST: fqdn_or_ip:port
+    ports:
+      - 19132:19132/udp
+      - 25565:25565
