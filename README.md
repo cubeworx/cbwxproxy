@@ -1,7 +1,7 @@
 CubeWorx Minecraft Server Proxy Image
 ==============
 
-This image is a self-contained Minecraft server proxy untilizing Traefik. It is intended for use in the upcoming CubeWork ecosystem but is also being provided for use in the Minecraft community.
+This image is a self-contained Minecraft server proxy utilizing Traefik. It is intended for use in the upcoming CubeWork ecosystem but is also being provided for use in the Minecraft community.
 
 ## Quickstart
 
