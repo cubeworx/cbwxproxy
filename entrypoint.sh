@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
+#!/bin/sh
+set -e
 
 CBWXPROXY_BEDROCK_ENABLE=${CBWXPROXY_BEDROCK_ENABLE:-"false"}
 CBWXPROXY_BEDROCK_PORT=${CBWXPROXY_BEDROCK_PORT:-"19132"}
@@ -36,6 +37,8 @@ TRAEFIK_BEDROCK_OPTS="\
 udp:
   routers:
     bedrock:
+      entryPoints:
+        - \"bedrock\"
       service: \"bedrock\"
   services:
     bedrock:
@@ -65,7 +68,9 @@ TRAEFIK_JAVA_OPTS="\
 tcp:
   routers:
     java:
-      rule: \"HostSNI(`*`)\"
+      entryPoints:
+        - \"java\"
+      rule: \"HostSNI(\`*\`)\"
       service: \"java\"
   services:
     java:

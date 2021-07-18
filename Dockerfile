@@ -2,8 +2,6 @@ FROM traefik:v2.4.9
 
 ARG BUILD_DATE
 
-LABEL cbwx.mcbe-announce.enable=true
-LABEL manymine.enable=true
 LABEL org.opencontainers.image.authors="Cory Claflin"
 LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.licenses='MIT'
@@ -22,10 +20,10 @@ EXPOSE $CBWXPROXY_BEDROCK_PORT/udp
 EXPOSE $CBWXPROXY_JAVA_PORT
 EXPOSE $TRAEFIK_ADMIN_PORT
 
-ADD entrypoint.sh /
-
-HEALTHCHECK --interval=60s --timeout=1s CMD curl -f http://localhost:$TRAEFIK_ADMIN_PORT/ping || exit 1
+HEALTHCHECK --interval=30s --timeout=1s CMD curl -f http://localhost:$TRAEFIK_ADMIN_PORT/ping || exit 1
 
 RUN set -x && \
     apk add --update --no-cache curl && \
     rm -rf /var/cache/apk/*
+
+ADD entrypoint.sh /
