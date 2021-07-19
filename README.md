@@ -1,7 +1,7 @@
 CubeWorx Minecraft Server Proxy Image
 ==============
 
-This image is a self-contained Minecraft server proxy utilizing Traefik. It is intended for use in the upcoming CubeWork ecosystem but is also being provided for use in the Minecraft community.
+This image is a self-contained Minecraft server proxy utilizing [Traefik](https://traefik.io). It is intended for use in the upcoming CubeWork ecosystem but is also being provided for use in the Minecraft community.
 
 ## Quickstart
 
@@ -55,4 +55,4 @@ services:
 
 This image has been tested and confirmed working with several of the popular community Bedrock Edition servers but found to work with only a couple of the community Java Edition servers.
 
-At present this image is not compatible with [manymine](https://github.com/illiteratealliterator/manymine) or [mcbe-announce](https://github.com/cubeworx/mcbe-announce) but we hope to update them to be compatible soon.
+At present this image is not compatible with [manymine](https://github.com/illiteratealliterator/manymine) or [cbwxannounce](https://github.com/cubeworx/cbwxannounce) but we hope to update them to be compatible soon.
