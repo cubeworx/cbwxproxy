@@ -1,3 +1,5 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/cubeworx/cbwxproxy.svg)](https://hub.docker.com/r/cubeworx/cbwxproxy)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cubeworx/cbwxproxy/blob/master/LICENSE.md)
 CubeWorx Minecraft Server Proxy Image
 ==============
 
