@@ -53,6 +53,14 @@ services:
       - 25565:25565
 ```
 
+## Connecting
+
+When running the container with port 19132/udp exposed for Bedrock clients, the proxied server will show up under LAN games in the Friends tab:
+![](docs/BedrockToBrokenLens.jpg)
+
+When running the container with port 25565 exposed for Java clients, you must still add a direct server connection under Multiplayer to connect to the local IP address of the server where the container is running:
+![](docs/JavaToFallenKingdom.png)
+
 ## Warnings
 
 This image has been tested and confirmed working with several of the popular community Bedrock Edition servers but found to work with only a couple of the community Java Edition servers.
