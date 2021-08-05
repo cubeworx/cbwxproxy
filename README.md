@@ -30,7 +30,7 @@ A single container can be used to proxy a connection to different remote Bedrock
 | `CBWXPROXY_BEDROCK_REMOTE_HOST=""` | Remote Bedrock FQDN or IP and port to connect to (fqdn_or_ip:port)       |
 | `CBWXPROXY_JAVA_ENABLE="false"`    | Enables Java Edition Proxy listener                                      |
 | `CBWXPROXY_JAVA_PORT="25565"`      | Default IPv4 TCP port the Bedrock Edition Server proxy should listen on. |
-| `CBWXPROXY_JAVA_REMOTE_HOST=""`    | Remote Bedrock FQDN or IP and port to connect to (fqdn_or_ip:port)       |
+| `CBWXPROXY_JAVA_REMOTE_HOST=""`    | Remote Java FQDN or IP and port to connect to (fqdn_or_ip:port)       |
 | `TRAEFIK_ADMIN_DEBUG="false"`      | Enables additional Traefik admin API endpoints for debugging             |
 | `TRAEFIK_ADMIN_ENABLE="false"`     | Enables Traefik admin API and dashboard                                  |
 | `TRAEFIK_ADMIN_PORT="8888"`        | Default IPv4 TCP port the Traefik admin should listen on.                |
