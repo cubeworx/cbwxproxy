@@ -38,21 +38,21 @@ jobs:
           BUILD_DATE=$(date +%Y.%m.%d)
           docker build --pull --build-arg BUILD_DATE=$BUILD_DATE --tag cubeworx/cbwxproxy:$IMG_VER .
           docker tag cubeworx/cbwxproxy:$IMG_VER cubeworx/cbwxproxy:latest
-          echo $IMG_VER > version.txt
-          #docker push cubeworx/cbwxproxy:$IMG_VER 
-          #docker push cubeworx/cbwxproxy:latest
+          #echo $IMG_VER > version.txt
+          echo "IMG_VER=${IMG_VER}" >> $GITHUB_ENV
 
       - name: Push Docker Image
         if: github.event_name != 'pull_request'
         run: |
-          IMG_VER=$(cat version.txt)
-          docker push cubeworx/cbwxproxy:$IMG_VER 
-          docker push cubeworx/cbwxproxy:latest
+          echo ${{ env.IMG_VER }}
+          #IMG_VER=$(cat version.txt)
+          #docker push cubeworx/cbwxproxy:$IMG_VER 
+          #docker push cubeworx/cbwxproxy:latest
 
-      - uses: ethomson/send-tweet-action@v1.0.0
-        with:
-          status: "New version of CubeWorx Minecraft Server Proxy Image released: https://hub.docker.com/r/cubeworx/cbwxproxy/tags?page=1&ordering=last_updated"
-          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+#       - uses: ethomson/send-tweet-action@v1.0.0
+#         with:
+#           status: "New version of CubeWorx Minecraft Server Proxy Image released: https://hub.docker.com/r/cubeworx/cbwxproxy/tags?page=1&ordering=last_updated"
+#           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+#           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+#           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+#           access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
