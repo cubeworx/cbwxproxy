@@ -51,7 +51,7 @@ jobs:
           context: .
           pull: true
           push: false
-          tags: ${{ env.GITHUB_REPOSITORY }}:${{ env.IMG_VER }},${{ env.GITHUB_REPOSITORY }}:latest
+          tags: cubeworx/cbwxproxy:${{ env.IMG_VER }},cubeworx/cbwxproxy:latest
 
 #       - name: Push Docker Image
 #         if: github.event_name != 'pull_request'
