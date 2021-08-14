@@ -1,6 +1,6 @@
 [![Build](https://img.shields.io/github/workflow/status/cubeworx/cbwxproxy/build-push-docker)](https://github.com/cubeworx/cbwxproxy/actions)
 [![Docker Pulls](https://img.shields.io/docker/pulls/cubeworx/cbwxproxy.svg)](https://hub.docker.com/r/cubeworx/cbwxproxy)
-[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/cubeworx/cbwxproxy)](https://hub.docker.com/r/cubeworx/cbwxproxy)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/cubeworx/cbwxproxy?sort=semver)](https://hub.docker.com/r/cubeworx/cbwxproxy)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/cubeworx/cbwxproxy/latest)](https://hub.docker.com/r/cubeworx/cbwxproxy)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cubeworx/cbwxproxy/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/follow/cubeworx?label=Follow&style=social)](https://twitter.com/intent/follow?screen_name=cubeworx)
