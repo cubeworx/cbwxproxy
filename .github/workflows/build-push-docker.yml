@@ -62,7 +62,7 @@ jobs:
       - uses: ethomson/send-tweet-action@v1.0.0
         if: github.event_name != 'pull_request'
         with:
-          status: "New version of CubeWorx Minecraft Server Proxy Image released: https://hub.docker.com/r/cubeworx/cbwxproxy/tags?page=1&ordering=last_updated&name=${{ env.IMG_VER }}"
+          status: "New version of #CubeWorx #Minecraft Server Proxy Image released: https://hub.docker.com/r/cubeworx/cbwxproxy/tags?page=1&ordering=last_updated&name=${{ env.IMG_VER }} #selfhosted"
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
