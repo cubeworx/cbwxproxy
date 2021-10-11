@@ -1,7 +1,9 @@
-FROM traefik:v2.4.9
+FROM traefik:v2.5.3
 
 ARG BUILD_DATE
 
+LABEL cbwx.announce.enable="true"
+LABEL cbwx.announce.type="proxy"
 LABEL org.opencontainers.image.authors="Cory Claflin"
 LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.licenses='MIT'
