@@ -68,6 +68,6 @@ When running the container with port 25565 exposed for Java clients, you must st
 
 ## Warnings
 
-This image has been tested and confirmed working with several of the popular community Bedrock Edition servers but found to work with only a couple of the community Java Edition servers.
+This image has been tested and confirmed working with several of the popular community Bedrock Edition servers but found to work with only a few of the community Java Edition servers.
 
-At present this image is not compatible with [manymine](https://github.com/illiteratealliterator/manymine) or [cbwxannounce](https://github.com/cubeworx/cbwxannounce) but we hope to update them to be compatible soon.
+At present only Java Edition proxied servers are compatible with [cbwxannounce](https://github.com/cubeworx/cbwxannounce).
